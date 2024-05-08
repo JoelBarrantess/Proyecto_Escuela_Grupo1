@@ -1,4 +1,5 @@
 <?php
+// <<<<<<< HEAD
 $host = "localhost";
 $nombreBD = "proyectoescuela";
 $userBD = "root";
@@ -12,4 +13,10 @@ $con->query("USE ");
 $mysql = $con->prepare("SELECT * FROM ");
 $mysql->execute();
 $resultado = $mysql->fetchAll();
+// =======
+
+
+
+
+// >>>>>>> b4ca25ff4295ff1a9f99a4a99637540589bb22a1
 ?>
