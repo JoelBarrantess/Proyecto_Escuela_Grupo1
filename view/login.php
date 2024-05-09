@@ -11,6 +11,24 @@
     <script src="../js/scripts.js"></script>
 </head>
 <body>
-    
+    <h2>Iniciar Sesión</h2>
+    <form action="../proc/procesar.php" method="post">
+        <div>
+            <label for="username">Nombre de Usuario:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <button type="submit">Iniciar Sesión</button>
+        </div>
+    </form>
+    <?php
+    if(isset($_GET['error']) && $_GET['error'] == 1 ){
+        echo "Error, El usuario es incorrecto";
+    }
+    ?>
 </body>
 </html>

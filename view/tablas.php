@@ -1,3 +1,6 @@
+<?php
+require_once '../conexion/conexion.php';
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

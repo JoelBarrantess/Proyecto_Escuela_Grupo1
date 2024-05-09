@@ -1,0 +1,26 @@
+/* Estilos básicos del navbar */
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* Estilos del logo */
+.logo {
+    width: 100px; /* Ancho del logo */
+}
+/* Estilos del botón */
+.btn {
+    background-color: #FF59F7; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Borde redondeado */
+    
+}
+
+.btn:hover {
+    background-color: #a0379b;
+}
