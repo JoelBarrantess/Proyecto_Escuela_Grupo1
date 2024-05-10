@@ -3,7 +3,7 @@
 $host = "localhost";
 $nombreBD = "proyectoescuela";
 $userBD = "root";
-$passBD = "";
+$passBD = "qazQAZ123";
 try{
     $con = new PDO("mysql:host=$host; dbname=$nombreBD", $userBD, $passBD);
 }catch(PDOException $e){
