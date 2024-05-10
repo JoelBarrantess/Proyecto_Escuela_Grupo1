@@ -18,7 +18,7 @@ require_once '../conexion/conexion.php';
     $con->query("USE proyecto_escuela");
     $mysql = $con->prepare("SELECT * FROM tbl_alumno");
     $mysql->execute();
-    $resultado = $mysql->fetchAll();
+    // $resultado = $mysql->fetchAll();
 ?>
 </body>
 </html>
