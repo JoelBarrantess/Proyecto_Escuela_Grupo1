@@ -1,3 +1,6 @@
+<?php
+require_once '../conexion/conexion.php';
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +14,11 @@
     <script src="../js/scripts.js"></script>
 </head>
 <body>
-    
+<?php
+    $con->query("USE proyecto_escuela");
+    $mysql = $con->prepare("SELECT * FROM tbl_alumno");
+    $mysql->execute();
+    $resultado = $mysql->fetchAll();
+?>
 </body>
 </html>
