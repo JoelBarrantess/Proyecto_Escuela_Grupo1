@@ -1,15 +1,20 @@
 <?php
+
 $host = "localhost";
-$nombreBD = "proyecto_escuela";
-$userBD = "root";
-$passBD = "";
-try{
-    $con = new PDO("mysql:host=$host; dbname=$nombreBD", $userBD, $passBD);
-}catch(PDOException $e){
-    echo "Error de conexión con la base de datos:".$e->getMessage();
+$dbname = "proyecto_escuela";
+$username = "root";
+$password = "qazQAZ123";
+
+try {
+    // Corregimos la cadena de conexión
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    // Configuramos PDO para que lance excepciones en caso de error
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e){
+    // Si hay un error, mostramos un mensaje
+    echo "Error de conexión: " . $e->getMessage();
+    // Detenemos la ejecución del script
+    exit();
 }
-$con->query("USE proyecto_escuela");
-$mysql = $con->prepare("SELECT * FROM tbl_alumno");
-$mysql->execute();
-$resultado = $mysql->fetchAll();
+return $pdo;
 ?>

@@ -10,25 +10,35 @@
     <!-- Script javascript -->
     <script src="../js/scripts.js"></script>
 </head>
-<body>
-    <h2>Iniciar Sesión</h2>
-    <form action="../proc/procesar.php" method="post">
-        <div>
-            <label for="username">Nombre de Usuario:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Iniciar Sesión</button>
-        </div>
+<body class="login-body">
+    <form action="../proc/procesar_login.php" method="post">
+        <div class="box">
+            <div class="container-login">
+                <div class="top-header">
+                    <img class="img-login" src="../img/logo1.jpeg" alt="logo">
+                    <header class="header-login">Iniciar Sesión</header>
+                </div>
+                <div class="input-field">
+                    <input class="input" type="text" id="username" name="username" placeholder="Usuario" required>
+                </div>
+                <div class="input-field">
+                    <input class="input" type="password" id="password" name="password" placeholder="Contraseña" required>
+                </div>
+                <div class="input-field">
+                    <button class="submit" type="submit">Iniciar Sesión</button>
+                </div>
+            </div> 
+        </div>  
     </form>
+    
+    
     <?php
     if(isset($_GET['error']) && $_GET['error'] == 1 ){
-        echo "Error, El usuario es incorrecto";
+        echo "<p>Error: El usuario o la contraseña es incorrecta</p>";
     }
     ?>
+
+
+    
 </body>
 </html>

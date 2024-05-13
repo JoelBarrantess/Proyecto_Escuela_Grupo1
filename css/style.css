@@ -1,4 +1,14 @@
 /* Estilos básicos del navbar */
+.index-body{
+    overflow: hidden; /* Oculta el desplazamiento del cuerpo */
+}
+
+p {
+    color: white;
+    text-align: center;
+    font-size: larger;
+}
+
 nav {
     background-color: #333;
     color: white;
@@ -9,7 +19,8 @@ nav {
 }
 /* Estilos del logo */
 .logo {
-    width: 100px; /* Ancho del logo */
+    width: auto; /* Ancho del logo */
+    height: 70px;
 }
 /* Estilos del botón */
 .btn {
@@ -23,4 +34,121 @@ nav {
 
 .btn:hover {
     background-color: #a0379b;
+}
+
+/* Estilo general carousel */
+#carouselExampleInterval {
+    height: 100vh; /* Ajusta la altura del carrusel al 100% del viewport */
+    overflow: hidden; /* Oculta el desbordamiento de las imágenes */
+}
+
+.carousel-item img {
+
+    height: 100%; /* Ajusta la altura de la imagen al 100% del viewport */
+    object-fit: cover; /* Escala la imagen para cubrir todo el contenedor manteniendo la relación de aspecto */
+    object-position: center; /* Asegura que la imagen se posicione centrada */
+}
+
+/* Estilo login */
+.login-body{
+    background-color: #412c40;
+}
+
+.form_crear{
+    background-color: #412c40;
+}
+.card-body {
+    background-color: #8b578a;
+    color: white;
+}
+
+.card-header {
+    background-color: #8b578a;
+    color: white;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 2.5rem;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.container-login{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+}
+
+.header-login{
+    color: #fff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    padding: 0 0 15px 0;
+}
+
+.input-field{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-field .input {
+    height: 45px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    color: #fff;
+    padding: 0 0 0 42px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.submit{
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    height: 45px;
+    outline: none;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.submit:hover{
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+
+.img-login{
+    width: 100px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.eliminar{
+    background-color: red;
 }

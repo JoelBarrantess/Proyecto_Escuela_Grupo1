@@ -11,19 +11,6 @@
     <script src="../js/scripts.js"></script>
 </head>
 <body>
-<?php
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    if(isset($username) && $username == "subemelaradio" ){
-       session_start();
-        $_SESSION['NOMBREOK'] = $username;
-        if (isset($password) && $password == "traemeelalcohol" ) {
-
-        }
-    } elseif (isset($username) && $username != "subemelaradio" ) {
-        header("location: ../view/login.php?error=1"); 
-    }
-    ?>
-
+    
 </body>
 </html>
