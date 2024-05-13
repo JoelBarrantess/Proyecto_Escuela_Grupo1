@@ -34,7 +34,10 @@
     
     <?php
     if(isset($_GET['error']) && $_GET['error'] == 1 ){
-        echo "<p>Error: El usuario o la contraseña es incorrecta</p>";
+        echo "Error, El usuario es incorrecto";
+    }
+    if(isset($_GET['error']) && $_GET['error'] == 2 ){
+        echo "Error, La contraseña es incorrecta";
     }
     ?>
 

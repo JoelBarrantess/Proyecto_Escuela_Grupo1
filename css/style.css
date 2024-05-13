@@ -1,14 +1,4 @@
 /* Estilos básicos del navbar */
-.index-body{
-    overflow: hidden; /* Oculta el desplazamiento del cuerpo */
-}
-
-p {
-    color: white;
-    text-align: center;
-    font-size: larger;
-}
-
 nav {
     background-color: #333;
     color: white;
@@ -19,8 +9,7 @@ nav {
 }
 /* Estilos del logo */
 .logo {
-    width: auto; /* Ancho del logo */
-    height: 70px;
+    width: 100px; /* Ancho del logo */
 }
 /* Estilos del botón */
 .btn {
@@ -37,39 +26,13 @@ nav {
 }
 
 /* Estilo general carousel */
-#carouselExampleInterval {
-    height: 100vh; /* Ajusta la altura del carrusel al 100% del viewport */
-    overflow: hidden; /* Oculta el desbordamiento de las imágenes */
-}
-
-.carousel-item img {
-
-    height: 100%; /* Ajusta la altura de la imagen al 100% del viewport */
-    object-fit: cover; /* Escala la imagen para cubrir todo el contenedor manteniendo la relación de aspecto */
-    object-position: center; /* Asegura que la imagen se posicione centrada */
+.img-carousel{
+    height: 86.7vh;
 }
 
 /* Estilo login */
 .login-body{
     background-color: #412c40;
-}
-
-.form_crear{
-    background-color: #412c40;
-}
-.card-body {
-    background-color: #8b578a;
-    color: white;
-}
-
-.card-header {
-    background-color: #8b578a;
-    color: white;
-    text-align: center;
-}
-
-.card-title {
-    font-size: 2.5rem;
 }
 
 .box{
@@ -133,22 +96,4 @@ nav {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-.boton {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.boton:hover {
-    background-color: #0056b3;
-}
-
-.eliminar{
-    background-color: red;
 }
