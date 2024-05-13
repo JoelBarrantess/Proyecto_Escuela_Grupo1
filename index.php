@@ -10,7 +10,7 @@
     <!-- Script javascript -->
     <script src="./js/scripts.js"></script>
 </head>
-<body class="index-body">
+<body>
     <!-- Navbar -->
     <nav>
         <!-- Logo a la izquierda -->
