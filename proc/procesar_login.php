@@ -1,6 +1,5 @@
 <?php
-
-$login = false;
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
@@ -19,17 +18,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($user) {
+        $tipo_usuario = $user['tipo_usuario'];
         // Verificar la contraseña
         if ($_POST["password"] == $user["password"]) {
             
-            session_start();
-            $_SESSION["loginok"] = $login;
-            header("Location: ../view/tablas.php");
-            exit;
+            // Establecer la variable de sesión de inicio de sesión como verdadera
+            $_SESSION["loginok"] = true;
+            
+            // Redireccionar según el tipo de usuario
+            if ($tipo_usuario == "administrador") {
+                $_SESSION["loginadmin"] = true;
+                header("Location: ../view/tablas.php?tabla=alumnos");
+                exit;
+            } elseif ($tipo_usuario == "profesor") {
+                $_SESSION["loginprofe"] = true;
+                header("Location: ../view/tablas.php?tabla=alumnos");
+                exit;
+            } elseif ($tipo_usuario == "alumno") {
+                $_SESSION["loginalum"] = true;
+                header("Location: ../view/tablas.php?tabla=alumnos");
+                exit;
+            } 
         }
     }
-    
-    header("Location: ../view/login.php?error=1");
-    exit;
 }
+    
+// Si las credenciales son incorrectas
+header("Location: ../view/login.php?error=1");
+exit;
 ?>

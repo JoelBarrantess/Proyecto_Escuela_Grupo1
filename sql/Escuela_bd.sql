@@ -34,13 +34,15 @@ create table if not exists tbl_login(
     id_login int not null auto_increment,
     username varchar(50) not null,
     password varchar(50) not null,
+    tipo_usuario ENUM('administrador', 'profesor', 'alumno') not null,
     primary key(id_login)
 );
-insert into tbl_login (username, password) values ('admin','admin');
+insert into tbl_login (username, password,tipo_usuario) values ('admin','admin','administrador');
+insert into tbl_login (username, password,tipo_usuario) values ('profe','profe','profesor');
 
 -- Inserts para profesores
 insert into tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, email_prof, telf_prof) values 
-('Walter', 'Hartwell', 'White', '76523475Z', 'johndoe@gmail.com', '624732412'),
+('Walter', 'Hartwell', 'White', '76523475Z', 'walterwhite@gmail.com', '624732412'),
 ('Maria', 'López', 'García', '45678901X', 'marialopez@gmail.com', '632187654'),
 ('Pedro', 'Martínez', 'Rodríguez', '12345678A', 'pedromartinez@gmail.com', '678945612'),
 ('Laura', 'González', 'Sánchez', '98765432B', 'lauragonzalez@gmail.com', '698745123'),

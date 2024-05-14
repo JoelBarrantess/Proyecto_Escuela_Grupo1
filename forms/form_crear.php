@@ -22,10 +22,11 @@ require_once '../conexion/conexion.php';
                         <h5 class="card-title">NUEVO ALUMNO</h5>
                     </div>
                     <div class="card-body">
-                        <form action="procesar_crear.php" method="POST">
+                        <form action="../acciones/crear.php" method="POST">
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required><br>
+                                <input type="text" class="form-control" id="nombre" name="nombre" onmousemove="validarNombre()" required>
+                                <p class="error-validacion" id="error_nombre"></p>
                             </div>
                             <div class="form-group">
                                 <label for="apellido1">Primer Apellido:</label>
@@ -37,7 +38,8 @@ require_once '../conexion/conexion.php';
                             </div>
                             <div class="form-group">
                                 <label for="dni">DNI:</label>
-                                <input type="text" class="form-control" id="dni" name="dni" required><br>
+                                <input type="text" class="form-control" id="dni" name="dni" onmousemove="validarDNI()" required >
+                                <p class="error-validacion" id="error_dni"></p>
                             </div>
                             <div class="form-group">
                                 <label for="email">Correo Electrónico:</label>

@@ -38,6 +38,12 @@
                 if(isset($_GET['error']) && $_GET['error'] == 1 ){
                     echo "<p class='error-login'>Error: Las credenciales son incorrectas.</p>";
                 }
+                if(isset($_GET['error']) && $_GET['error'] == 2 ){
+                    echo "<p class='error-login'>Error: No te intentes colar</p>";
+                }
+                if(isset($_GET['desconexion']) && $_GET['desconexion'] == 1 ){
+                    echo "<p class='error-login'>Te has desconectado.</p>";
+                }
                 ?>
 
             </div> 

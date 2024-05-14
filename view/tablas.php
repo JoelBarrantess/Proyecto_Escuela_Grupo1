@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    if(!isset($_SESSION['loginok'])){
+    header("location: ./login.php?error=2"); 
+}
+?>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -12,40 +17,80 @@ require_once '../conexion/conexion.php';
 
 // Obtener filtro seleccionado
 $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '';
+// Obtener tabla seleccionada
+$tabla = isset($_GET['tabla']) ? $_GET['tabla'] : 'alumnos';
 
-// Preparamos SQL según el filtro seleccionado
+// Preparamos SQL según el filtro seleccionado y la tabla
 switch ($filtro) {
     case 'nombre':
-        $sql = "SELECT * FROM tbl_alumno ORDER BY nom_alu";
+        $order_by = ($tabla == 'alumnos') ? 'a.nom_alu' : 'p.nom_prof';
         break;
-    case 'apellido1_alu':
-        $sql = "SELECT * FROM tbl_alumno ORDER BY apellido1_alu";
+    case 'apellido1':
+        $order_by = ($tabla == 'alumnos') ? 'a.apellido1_alu' : 'p.apellido1_prof';
         break;
-    case 'apellido2_alu':
-        $sql = "SELECT * FROM tbl_alumno ORDER BY apellido2_alu";
+    case 'apellido2':
+        $order_by = ($tabla == 'alumnos') ? 'a.apellido2_alu' : 'p.apellido2_prof';
         break;
-    case 'dni_alum':
-        $sql = "SELECT * FROM tbl_alumno ORDER BY dni_alum";
+    case 'dni':
+        $order_by = ($tabla == 'alumnos') ? 'a.dni_alum' : 'p.dni_prof';
         break;
-    case 'email_alum':
-        $sql = "SELECT * FROM tbl_alumno ORDER BY email_alum";
+    case 'email':
+        $order_by = ($tabla == 'alumnos') ? 'a.email_alum' : 'p.email_prof';
         break;
-    case 'telf_alum':
-        $sql = "SELECT * FROM tbl_alumno ORDER BY telf_alum";
+    case 'telefono':
+        $order_by = ($tabla == 'alumnos') ? 'a.telf_alum' : 'p.telf_prof';
         break;
-    case 'codi_clase':
-        $sql = "SELECT * FROM tbl_alumno inner join tbl_clase ORDER BY codi_clase";
+    case 'clase':
+        $order_by = ($tabla == 'alumnos') ? 'c.codi_clase' : 'c.nombre_clase';
         break;
     default:
-        $sql = 'SELECT id_alumno,nom_alu,apellido1_alu,apellido2_alu,dni_alum,email_alum,telf_alum,codi_clase from tbl_alumno inner join tbl_clase on tbl_alumno.id_clase = tbl_clase.id_clase order by id_alumno asc';
+        $order_by = ($tabla == 'alumnos') ? 'a.id_alumno' : 'p.id_profesor';
+}
+
+// Construimos la consulta dependiendo de la tabla seleccionada
+if ($tabla == 'alumnos') {
+    $sql = "SELECT DISTINCT a.*, c.codi_clase 
+            FROM tbl_alumno a 
+            LEFT JOIN tbl_clase c ON a.id_clase = c.id_clase 
+            GROUP BY a.id_alumno 
+            ORDER BY $order_by ASC";
+} elseif ($tabla == 'profesores') {
+    $sql = "SELECT DISTINCT p.*, c.nombre_clase 
+            FROM tbl_profesor p 
+            LEFT JOIN tbl_clase c ON p.id_profesor = c.id_profesor 
+            ORDER BY $order_by ASC";
 }
 
 // Verificar si se ha enviado una consulta de búsqueda
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = $_GET['search'];
-    $sql = "SELECT * FROM tbl_alumno  inner join tbl_clase WHERE nom_alu LIKE '%$search%' OR apellido1_alu LIKE '%$search%' OR apellido2_alu LIKE '%$search%' OR dni_alum LIKE '%$search%' OR email_alum LIKE '%$search%' OR telf_alum LIKE '%$search%' OR codi_clase LIKE '%$search%'";
+    if ($tabla == 'alumnos') {
+        $sql = "SELECT DISTINCT a.*, c.codi_clase 
+                FROM tbl_alumno a 
+                LEFT JOIN tbl_clase c ON a.id_clase = c.id_clase 
+                WHERE a.nom_alu LIKE '%$search%' 
+                    OR a.apellido1_alu LIKE '%$search%' 
+                    OR a.apellido2_alu LIKE '%$search%' 
+                    OR a.dni_alum LIKE '%$search%' 
+                    OR a.email_alum LIKE '%$search%' 
+                    OR a.telf_alum LIKE '%$search%' 
+                    OR c.codi_clase LIKE '%$search%' 
+                GROUP BY a.id_alumno 
+                ORDER BY $order_by ASC";
+    } elseif ($tabla == 'profesores') {
+        $sql = "SELECT DISTINCT p.*, c.nombre_clase 
+                FROM tbl_profesor p 
+                LEFT JOIN tbl_clase c ON p.id_profesor = c.id_profesor 
+                WHERE p.nom_prof LIKE '%$search%' 
+                    OR p.apellido1_prof LIKE '%$search%' 
+                    OR p.apellido2_prof LIKE '%$search%' 
+                    OR p.dni_prof LIKE '%$search%' 
+                    OR p.email_prof LIKE '%$search%' 
+                    OR p.telf_prof LIKE '%$search%' 
+                    OR c.nombre_clase LIKE '%$search%' 
+                ORDER BY $order_by ASC";
+    }
 }
-
 // Ejecutamos la consulta
 $consulta = $pdo->query($sql);
 $resultados = $consulta->fetchAll();
@@ -67,70 +112,106 @@ $resultados = $consulta->fetchAll();
         </div>
     </div>
     <!-- Menú de filtrado -->
-    <div class="row mb-3">
-        <div class="col">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="filtro">Filtrar por</label>
-                </div>
-                <select class="custom-select" id="filtro" onchange="location = this.value;">
-                    <option value="?filtro=" <?php if ($filtro == '') echo 'selected'; ?>>Seleccionar...</option>
-                    <option value="?filtro=nom_alu" <?php if ($filtro == 'nombre') echo 'selected'; ?>>Nombre</option>
-                    <option value="?filtro=apellido1_alu" <?php if ($filtro == '1r_apellido') echo 'selected'; ?>>1er Apellido</option>
-                    <option value="?filtro=apellido2_alu" <?php if ($filtro == '2do_apellido') echo 'selected'; ?>>2do Apellido</option>
-                    <option value="?filtro=dni_alum" <?php if ($filtro == 'dni') echo 'selected'; ?>>DNI</option>
-                    <option value="?filtro=email_alum" <?php if ($filtro == 'mail') echo 'selected'; ?>>Correo Electrónico</option>
-                    <option value="?filtro=telf_alum" <?php if ($filtro == 'telf') echo 'selected'; ?>>Teléfono</option>
-                    <option value="?filtro=codi_clase" <?php if ($filtro == 'clase') echo 'selected'; ?>>Clase</option>
-                </select>
+<!-- Menú de filtrado -->
+<div class="row mb-3">
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="filtro">Filtrar por</label>
             </div>
-        </div>
-    </div>
-    <!-- Botón de agregar nuevo -->
-    <div class="row">
-        <div class="col text-right">
-            <a href='../acciones/crear.php' class='btn btn-success'>Añadir Nuevo</a>
-        </div>
-    </div>
-    <!-- Tabla principal -->
-    <div class="row mt-3">
-        <div class="col">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Nº</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">1r Apellido</th>
-                        <th scope="col">2do Apellido</th>
-                        <th scope="col">DNI</th>
-                        <th scope="col">MAIL</th>
-                        <th scope="col">Telf</th>
-                        <th scope="col">Clase</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($resultados as $columna) : ?>
-                        <tr>
-                            <td><?php echo $columna['id_alumno']; ?></td>
-                            <td><?php echo $columna['nom_alu']; ?></td>
-                            <td><?php echo $columna['apellido1_alu']; ?></td>
-                            <td><?php echo $columna['apellido2_alu']; ?></td>
-                            <td><?php echo $columna['dni_alum']; ?></td>
-                            <td><?php echo $columna['email_alum']; ?></td>
-                            <td><?php echo $columna['telf_alum']; ?></td>
-                            <td><?php echo $columna['codi_clase']; ?></td>
-                            <td>
-                                <a href="../acciones/modificar.php?id_alumno=<?php echo $columna['id_alumno']; ?>" class="btn btn-info btn-sm">Modificar</a>
-                                <a href="../acciones/borrar.php?id_alumno=<?php echo $columna['id_alumno']; ?>" class="btn btn-danger btn-sm">Eliminar</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <select class="custom-select" id="filtro" onchange="location = this.value;">
+                <?php if (isset($_GET['tabla']) && $_GET['tabla'] == 'profesores'): ?>
+                    <option value="?tabla=profesores&filtro=" <?php if ($filtro == '') echo 'selected'; ?>>Seleccionar...</option>
+                    <option value="?tabla=profesores&filtro=nombre" <?php if ($filtro == 'nombre') echo 'selected'; ?>>Nombre</option>
+                    <option value="?tabla=profesores&filtro=apellido1" <?php if ($filtro == 'apellido1') echo 'selected'; ?>>1er Apellido</option>
+                    <option value="?tabla=profesores&filtro=apellido2" <?php if ($filtro == 'apellido2') echo 'selected'; ?>>2do Apellido</option>
+                    <option value="?tabla=profesores&filtro=dni" <?php if ($filtro == 'dni') echo 'selected'; ?>>DNI</option>
+                    <option value="?tabla=profesores&filtro=email" <?php if ($filtro == 'email') echo 'selected'; ?>>Correo Electrónico</option>
+                    <option value="?tabla=profesores&filtro=telefono" <?php if ($filtro == 'telefono') echo 'selected'; ?>>Teléfono</option>
+                <?php else: ?>
+                    <option value="?tabla=alumnos&filtro=" <?php if ($filtro == '') echo 'selected'; ?>>Seleccionar...</option>
+                    <option value="?tabla=alumnos&filtro=nombre" <?php if ($filtro == 'nombre') echo 'selected'; ?>>Nombre</option>
+                    <option value="?tabla=alumnos&filtro=apellido1" <?php if ($filtro == 'apellido1') echo 'selected'; ?>>1er Apellido</option>
+                    <option value="?tabla=alumnos&filtro=apellido2" <?php if ($filtro == 'apellido2') echo 'selected'; ?>>2do Apellido</option>
+                    <option value="?tabla=alumnos&filtro=dni" <?php if ($filtro == 'dni') echo 'selected'; ?>>DNI</option>
+                    <option value="?tabla=alumnos&filtro=email" <?php if ($filtro == 'email') echo 'selected'; ?>>Correo Electrónico</option>
+                    <option value="?tabla=alumnos&filtro=telefono" <?php if ($filtro == 'telefono') echo 'selected'; ?>>Teléfono</option>
+                    <option value="?tabla=alumnos&filtro=clase" <?php if ($filtro == 'clase') echo 'selected'; ?>>Clase</option>
+                <?php endif; ?>
+            </select>
         </div>
     </div>
 </div>
+    <div class="row mb-3">
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="tabla">Seleccionar tabla</label>
+            </div>
+            <select class="custom-select" id="tabla" onchange="location = this.value;">
+                <option value="?tabla=alumnos" <?php if (!isset($_GET['tabla']) || $_GET['tabla'] == 'alumnos') echo 'selected'; ?>>Alumnos</option>
+                <option value="?tabla=profesores" <?php if (isset($_GET['tabla']) && $_GET['tabla'] == 'profesores') echo 'selected'; ?>>Profesores</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+    <!-- Botón de agregar nuevo -->
+    <div class="row">
+        <div class="col text-right">
+            <a href='../forms/form_crear.php' class='btn btn-success'>Añadir Nuevo</a>
+        </div>
+    </div>
+   <!-- Tabla principal -->
+<div class="row mt-3">
+    <div class="col">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nº</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">1r Apellido</th>
+                    <th scope="col">2do Apellido</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col">Teléfono</th>
+                    <?php if (isset($_GET['tabla']) && $_GET['tabla'] == 'alumnos'): ?>
+                        <th scope="col">Clase</th>
+                    <?php endif; ?>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($resultados as $columna) : ?>
+                    <tr>
+                        <td><?php echo $columna['id_' . ($_GET['tabla'] == 'profesores' ? 'profesor' : 'alumno')]; ?></td>
+                        <td><?php echo $columna['nom_' . ($_GET['tabla'] == 'profesores' ? 'prof' : 'alu')]; ?></td>
+                        <td><?php echo $columna['apellido1_' . ($_GET['tabla'] == 'profesores' ? 'prof' : 'alu')]; ?></td>
+                        <td><?php echo $columna['apellido2_' . ($_GET['tabla'] == 'profesores' ? 'prof' : 'alu')]; ?></td>
+                        <td><?php echo $columna['dni_' . ($_GET['tabla'] == 'profesores' ? 'prof' : 'alum')]; ?></td>
+                        <td><?php echo $columna['email_' . ($_GET['tabla'] == 'profesores' ? 'prof' : 'alum')]; ?></td>
+                        <td><?php echo $columna['telf_' . ($_GET['tabla'] == 'profesores' ? 'prof' : 'alum')]; ?></td>
+                        <?php if (isset($_GET['tabla']) && $_GET['tabla'] == 'alumnos'): ?>
+                            <td><?php echo $columna['codi_clase']; ?></td>
+                        <?php endif; 
+                        if($_GET['tabla']=='profesores'){
+                            $tabla="profesores";
+                        }else{
+                            $tabla="alumnos";
+                        }
+                        ?>
+                        <td>
+                            <a href="../forms/form_editar.php?id_<?php echo ($_GET['tabla'] == 'profesores' ? 'profesor' : 'alumno')."=". $columna['id_'.($_GET['tabla'] == 'profesores' ? 'profesor' : 'alumno')]; echo "&tabla=".$tabla; ?>" class="btn btn-info btn-sm">Modificar</a>
+                            <a href="../acciones/eliminar.php?id_<?php echo $tabla; ?>=<?php echo $columna['id_' . ($_GET['tabla'] == 'profesores' ? 'profesor' : 'alumno')]; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <a href="../proc/cerrar-sesion.php" class="btn btn-info btn-sm">Cerrar sesión</a>
+    </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
