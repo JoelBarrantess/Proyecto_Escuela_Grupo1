@@ -11,6 +11,11 @@
     <script src="../js/scripts.js"></script>
 </head>
 <body class="login-body">
+    <!-- Botón para volver atrás -->
+    <div class="back-link">
+        <a class="boton-atras" href="../index.php">Volver atrás</a>
+    </div>
+    <!-- Formulario para hacer el Login -->
     <form action="../proc/procesar_login.php" method="post">
         <div class="box">
             <div class="container-login">
@@ -27,16 +32,19 @@
                 <div class="input-field">
                     <button class="submit" type="submit">Iniciar Sesión</button>
                 </div>
+
+                <!-- Mensaje de error si fallamos en las credenciales -->
+                <?php
+                if(isset($_GET['error']) && $_GET['error'] == 1 ){
+                    echo "<p class='error-login'>Error: Las credenciales son incorrectas.</p>";
+                }
+                ?>
+
             </div> 
         </div>  
     </form>
     
     
-    <?php
-    if(isset($_GET['error']) && $_GET['error'] == 1 ){
-        echo "<p>Error: El usuario o la contraseña es incorrecta</p>";
-    }
-    ?>
 
 
     
