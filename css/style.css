@@ -3,12 +3,6 @@
     overflow: hidden; /* Oculta el desplazamiento del cuerpo */
 }
 
-p {
-    color: white;
-    text-align: center;
-    font-size: larger;
-}
-
 nav {
     background-color: #333;
     color: white;
@@ -54,23 +48,6 @@ nav {
     background-color: #412c40;
 }
 
-.form_crear{
-    background-color: #412c40;
-}
-.card-body {
-    background-color: #8b578a;
-    color: white;
-}
-
-.card-header {
-    background-color: #8b578a;
-    color: white;
-    text-align: center;
-}
-
-.card-title {
-    font-size: 2.5rem;
-}
 
 .box{
     display: flex;
@@ -134,6 +111,34 @@ nav {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.error-login {
+    color: red;
+    text-align: center;
+    font-size: 16px;
+}
+
+.back-link {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    margin: 5px;
+}
+
+.boton-atras {
+    background-color: #FF59F7; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    padding: 4px 12px; /* Espaciado interno del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Borde redondeado */
+    text-decoration: none;
+}
+
+.boton-atras:hover {
+    background-color: #a0379b;
+}
+
+/* Estilo general tablas */
 .boton {
     display: inline-block;
     padding: 10px 20px;
