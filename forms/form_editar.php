@@ -27,7 +27,6 @@ if ((isset($_GET['id_alumno']) || isset($_GET['id_profesor'])) && isset($_GET['t
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
