@@ -1,19 +1,50 @@
 <?php
 require_once '../conexion/conexion.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Obtener datos del formulario
+    $tipo_usuario = $_POST['tipo_usuario'];
+    $nombre = $_POST['nombre'];
+    $apellido1 = $_POST['apellido1'];
+    $apellido2 = $_POST['apellido2'];
+    $dni = $_POST['dni'];
+    $email = $_POST['email'];
+    $telefono = $_POST['telefono'];
+    $clase = isset($_POST['clase']) ? $_POST['clase'] : null;
+
+    try {
+        if ($tipo_usuario == 'alumno') {
+            // Preparar y ejecutar la consulta para insertar el nuevo alumno
+            $consulta = $pdo->prepare('INSERT INTO tbl_alumno (nom_alu, apellido1_alu, apellido2_alu, dni_alum, email_alum, telf_alum, id_clase) VALUES (:nombre, :apellido1, :apellido2, :dni, :email, :telefono, :clase)');
+            $consulta->execute([
+                'nombre' => $nombre,
+                'apellido1' => $apellido1,
+                'apellido2' => $apellido2,
+                'dni' => $dni,
+                'email' => $email,
+                'telefono' => $telefono,
+                'clase' => $clase
+            ]);
+        } elseif ($tipo_usuario == 'profesor') {
+            // Preparar y ejecutar la consulta para insertar el nuevo profesor
+            $consulta = $pdo->prepare('INSERT INTO tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, email_prof, telf_prof) VALUES (:nombre, :apellido1, :apellido2, :dni, :email, :telefono)');
+            $consulta->execute([
+                'nombre' => $nombre,
+                'apellido1' => $apellido1,
+                'apellido2' => $apellido2,
+                'dni' => $dni,
+                'email' => $email,
+                'telefono' => $telefono
+            ]);
+        }
+
+        // Redirigir de vuelta a la página principal o a otra página
+        header('Location: ../view/tablas.php?tabla=' . ($tipo_usuario == 'alumno' ? 'alumnos' : 'profesores'));
+        exit();
+    } catch (PDOException $e) {
+        // Manejar errores de la base de datos
+        echo 'Error: ' . $e->getMessage();
+    }
+}
 ?>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academia</title>
-    <!-- Link Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Link css -->
-    <link rel="stylesheet" href="../css/style.css">
-    <!-- Script javascript -->
-    <script src="../js/scripts.js"></script>
-</head>
-<body>
-    
-</body>
-</html>
+

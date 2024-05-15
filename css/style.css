@@ -1,4 +1,8 @@
-/* Estilos básicos del navbar */
+/* Estilos básicos */
+.index-body {
+    overflow: hidden; /* Oculta el desplazamiento del cuerpo */
+}
+
 nav {
     background-color: #333;
     color: white;
@@ -7,10 +11,13 @@ nav {
     justify-content: space-between;
     align-items: center;
 }
+
 /* Estilos del logo */
 .logo {
-    width: 100px; /* Ancho del logo */
+    height: 70px;
+    width: auto; /* Ancho del logo */
 }
+
 /* Estilos del botón */
 .btn {
     background-color: #FF59F7; /* Color de fondo del botón */
@@ -18,9 +25,132 @@ nav {
     padding: 10px 20px; /* Espaciado interno del botón */
     border: none; /* Sin borde */
     border-radius: 5px; /* Borde redondeado */
-    
 }
 
 .btn:hover {
     background-color: #a0379b;
 }
+
+/* Estilo general del carrusel */
+#carouselExampleInterval {
+    height: 100vh; /* Ajusta la altura del carrusel al 100% del viewport */
+    overflow: hidden; /* Oculta el desbordamiento de las imágenes */
+}
+
+.carousel-item img {
+    height: 100%; /* Ajusta la altura de la imagen al 100% del viewport */
+    object-fit: cover; /* Escala la imagen para cubrir todo el contenedor manteniendo la relación de aspecto */
+    object-position: center; /* Asegura que la imagen se posicione centrada */
+}
+
+/* Estilo del login */
+.login-body {
+    background-color: #412c40;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.container-login {
+    width: 350px;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-login {
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.input-field {
+    margin-bottom: 15px;
+}
+
+.input-field .input {
+    height: 45px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    color: #fff;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.submit {
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    height: 45px;
+    outline: none;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.submit:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+
+.img-login {
+    width: 100px;
+    margin: 0 auto 20px; /* Centra la imagen */
+    display: block;
+}
+
+.error-login,
+.error-validacion {
+    color: red;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px; /* Espacio arriba */
+}
+
+.back-link {
+    margin: 10px 0; /* Espacio arriba y abajo */
+}
+
+.boton-atras {
+    background-color: #FF59F7; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    padding: 4px 12px; /* Espaciado interno del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Borde redondeado */
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.boton-atras:hover {
+    background-color: #a0379b;
+}
+
+/* Estilo general de las tablas */
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.eliminar {
+    background-color: red;
+}
+
