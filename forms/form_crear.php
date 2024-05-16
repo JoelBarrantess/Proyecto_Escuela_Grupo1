@@ -24,36 +24,38 @@ require_once '../conexion/conexion.php';
                     <div class="card-body">
                         <form action="../acciones/crear.php" method="POST">
                             <div class="form-group">
-                                <label for="tipo_usuario">Tipo de Usuario:</label>
-                                <select class="form-control" id="tipo_usuario" name="tipo_usuario" onchange="campoClase()" required>
+                                <label for="usuario">Tipo de Usuario:</label>
+                                <select class="form-control" id="usuario" name="usuario" onchange="campoClase()" onmouseenter="validarSeleccion()" required>
                                     <option value="">Seleccione...</option>
                                     <option value="alumno">Alumno</option>
                                     <option value="profesor">Profesor</option>
-                                </select><br>
+                                </select>
+                                <p id='error_usuario' class="error-validacion">
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" onmouseleave="validarNombre()" required>
-                                <p id='error_nombre'>
+                                <input type="text" class="form-control" id="nombre" name="nombre" onmouseenter="validarNombre()" required>
+                                <p id='error_nombre' class="error-validacion">
                             </div>
                             <div class="form-group">
                                 <label for="apellido1">Primer Apellido:</label>
-                                <input type="text" class="form-control" id="apellido1" name="apellido1" onmouseleave="validarApellido1()" required><br>
-                                <p id='error_apellido1'>
+                                <input type="text" class="form-control" id="apellido1" name="apellido1" onmouseenter="validarApellido1()" required>
+                                <p id='error_apellido1' class="error-validacion">
                             </div>
                             <div class="form-group">
                                 <label for="apellido2">Segundo Apellido:</label>
-                                <input type="text" class="form-control" id="apellido2" name="apellido2" onmouseleave="validarApellido2()" required><br>
-                                <p id='error_apellido2'>
+                                <input type="text" class="form-control" id="apellido2" name="apellido2" onmouseenter="validarApellido2()" required>
+                                <p id='error_apellido2' class="error-validacion">
                             </div>
                             <div class="form-group">
                                 <label for="dni">DNI:</label>
-                                <input type="text" class="form-control" id="dni" name="dni" onmouseleave="validarDNI()" required>
-                                <p id="error_dni">
+                                <input type="text" class="form-control" id="dni" name="dni" onmouseenter="validarDNI()" required>
+                                <p id="error_dni" class="error-validacion">
                             </div>
                             <div class="form-group">
                                 <label for="email">Correo Electrónico:</label>
-                                <input type="email" class="form-control" id="email" name="email"><br>
+                                <input type="email" class="form-control" id="email" name="email" onmouseenter="validarEmail()">
+                                <p id="error_email" class="error-validacion">
                             </div>
                             <div class="form-group">
                                 <label for="telefono">Teléfono:</label>

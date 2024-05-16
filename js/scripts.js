@@ -1,9 +1,9 @@
 
 //Cambia el campo de clase segun si es profesor o alumno
 function campoClase() {
-    var tipoUsuario = document.getElementById('tipo_usuario').value;
+    var Usuario = document.getElementById('usuario').value;
     var claseField = document.getElementById('clase_field');
-    if (tipoUsuario === 'alumno') {
+    if (Usuario === 'alumno') {
         claseField.style.display = 'block';
     } else {
         claseField.style.display = 'none';
@@ -99,4 +99,27 @@ function confirmarEliminar(id) {
     }
 }
 
+function validarEmail() {
+    var email = document.getElementById("email").value;
+    var errorEmail = document.getElementById("error_email");
+
+    if (email.trim().length === 0) {
+        errorEmail.textContent = "El correo electrónico no puede estar vacío.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errorEmail.textContent = "Introduce un correo electrónico válido.";
+    } else {
+        errorEmail.textContent = "";
+    }
+}
+
+function validarSeleccion() {
+    var Usuario = document.getElementById("usuario");
+    var error_usuario = document.getElementById("error_usuario");
+
+    if (Usuario.value === "") {
+        error_usuario.textContent = "Por favor, seleccione una opción para este campo.";
+    } else {
+        error_usuario.textContent = ""; // Clear the message if an option is selected
+    }
+}
 
