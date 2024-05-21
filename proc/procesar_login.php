@@ -31,9 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 header("Location: ../view/tablas.php?tabla=alumnos");
                 exit;
             } elseif ($tipo_usuario == "profesor") {
-                $_SESSION["loginprofe"] = true;
-                header("Location: ../view/tablas.php?tabla=alumnos");
-                exit;
+                // Verificar si el profesor que intenta iniciar sesión coincide con el id_profesor proporcionado
+                if ($_SESSION["id_profesor"] == $user['id_profesor']) {
+                    // Establecer la variable de sesión de inicio de sesión como verdadera
+                    $_SESSION["loginprofe"] = true;
+                    header("Location: ../view/tablas.php?tabla=alumnos");
+        exit;
+    } else {
+        // El id_profesor no coincide, por lo que no tiene permiso para iniciar sesión como este profesor
+        header("Location: ../view/login.php?error=1");
+        exit;
+    }
             } elseif ($tipo_usuario == "alumno") {
                 $_SESSION["loginalum"] = true;
                 header("Location: ../view/tablas.php?tabla=alumnos");

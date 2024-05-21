@@ -1,6 +1,7 @@
-<?php
-require_once '../conexion/conexion.php';
-?>
+<?php session_start();?>
+<?php if(isset($_SESSION['loginadmin'])): ?>
+<?php require_once '../conexion/conexion.php';?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,8 +25,8 @@ require_once '../conexion/conexion.php';
                     <div class="card-body">
                         <form action="../acciones/crear.php" method="POST">
                             <div class="form-group">
-                                <label for="usuario">Tipo de Usuario:</label>
-                                <select class="form-control" id="usuario" name="usuario" onchange="campoClase()" onmouseenter="validarSeleccion()" required>
+                                <label for="tipo_usuario">Tipo de Usuario:</label>
+                                <select class="form-control" id="tipo_usuario" name="tipo_usuario" onchange="campoClase()" onmouseenter="validarSeleccion()" required>
                                     <option value="">Seleccione...</option>
                                     <option value="alumno">Alumno</option>
                                     <option value="profesor">Profesor</option>
@@ -79,3 +80,8 @@ require_once '../conexion/conexion.php';
     </div>
 </body>
 </html>
+<?php 
+elseif (!$_SESSION['loginadmin']): 
+     header('Location: ../view/tablas.php?tabla=alumnos?colarse=1');
+endif; 
+?>

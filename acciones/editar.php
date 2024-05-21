@@ -13,19 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $telefono = $_POST['telefono'];
     $clase = isset($_POST['clase']) ? $_POST['clase'] : null;
 
-    // Validar y sanitizar las entradas
-    $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-    $tabla = filter_var($tabla, FILTER_SANITIZE_STRING);
-    $nombre = filter_var($nombre, FILTER_SANITIZE_STRING);
-    $apellido1 = filter_var($apellido1, FILTER_SANITIZE_STRING);
-    $apellido2 = filter_var($apellido2, FILTER_SANITIZE_STRING);
-    $dni = filter_var($dni, FILTER_SANITIZE_STRING);
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    $telefono = filter_var($telefono, FILTER_SANITIZE_STRING);
-    if ($clase !== null) {
-        $clase = filter_var($clase, FILTER_SANITIZE_NUMBER_INT);
-    }
-
     try {
         // Preparar y ejecutar la consulta para actualizar los datos
         if ($tabla == 'alumnos') {

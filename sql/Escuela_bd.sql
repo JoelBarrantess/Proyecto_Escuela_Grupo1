@@ -35,10 +35,12 @@ create table if not exists tbl_login(
     username varchar(50) not null,
     password varchar(50) not null,
     tipo_usuario ENUM('administrador', 'profesor', 'alumno') not null,
-    primary key(id_login)
+    id_profesor int,
+    primary key(id_login),
+    foreign key(id_profesor) references tbl_profesor(id_profesor)
 );
+
 insert into tbl_login (username, password,tipo_usuario) values ('admin','admin','administrador');
-insert into tbl_login (username, password,tipo_usuario) values ('profe','profe','profesor');
 
 -- Inserts para profesores
 insert into tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, email_prof, telf_prof) values 
@@ -85,5 +87,69 @@ insert into tbl_alumno (nom_alu, apellido1_alu, apellido2_alu, dni_alum, email_a
 ('Carlos', 'Sánchez', 'Pérez', '34567890Z', 'carlossanchez@gmail.com', '645219837', 3),
 ('Ana', 'Pérez', 'Martínez', '45678901A', 'anaperez@gmail.com', '623489751', 4);
 
+/* Trigger alumnos */
+DELIMITER //
+CREATE TRIGGER trigger_alumnos
+BEFORE INSERT ON tbl_alumno
+FOR EACH ROW
+BEGIN
+   SET NEW.nom_alu = CONCAT(UPPER(LEFT(NEW.nom_alu, 1)), LOWER(SUBSTRING(NEW.nom_alu, 2)));
+   SET NEW.apellido1_alu = CONCAT(UPPER(LEFT(NEW.apellido1_alu, 1)), LOWER(SUBSTRING(NEW.apellido1_alu, 2)));
+   SET NEW.apellido2_alu = CONCAT(UPPER(LEFT(NEW.apellido2_alu, 1)), LOWER(SUBSTRING(NEW.apellido2_alu, 2)));
+END //
+DELIMITER ;
+
+
+/* Trigger profesores */
+DELIMITER //
+CREATE TRIGGER trigger_profesores
+BEFORE INSERT ON tbl_profesor
+FOR EACH ROW
+BEGIN
+   SET NEW.nom_prof = CONCAT(UPPER(LEFT(NEW.nom_prof, 1)), LOWER(SUBSTRING(NEW.nom_prof, 2)));
+   SET NEW.apellido1_prof = CONCAT(UPPER(LEFT(NEW.apellido1_prof, 1)), LOWER(SUBSTRING(NEW.apellido1_prof, 2)));
+   SET NEW.apellido2_prof = CONCAT(UPPER(LEFT(NEW.apellido2_prof, 1)), LOWER(SUBSTRING(NEW.apellido2_prof, 2)));
+END //
+DELIMITER ;
+
+
+/* Trigger login profe */
+DELIMITER //
+
+CREATE TRIGGER trigger_login_profesor
+AFTER INSERT ON tbl_profesor
+FOR EACH ROW
+BEGIN
+    DECLARE username_prof VARCHAR(50);
+    DECLARE password_prof VARCHAR(50);
+
+    SET username_prof = CONCAT(LOWER(LEFT(NEW.nom_prof, 1)), LOWER(NEW.apellido1_prof));
+    SET password_prof = SUBSTRING(SHA2(CONCAT(NOW(), RAND()), 256), 1, 8);
+
+    INSERT INTO tbl_login (username, password, tipo_usuario, id_profesor) 
+    VALUES (username_prof, password_prof, 'profesor', NEW.id_profesor);
+END //
+
+DELIMITER ;
+
+
+/* Trigger login alumnos */
+DELIMITER //
+
+CREATE TRIGGER trigger_login_alumno
+AFTER INSERT ON tbl_alumno
+FOR EACH ROW
+BEGIN
+    DECLARE username_alu VARCHAR(50);
+    DECLARE password_alu VARCHAR(50);
+
+    SET username_alu = CONCAT(LOWER(LEFT(NEW.nom_alu, 1)), LOWER(NEW.apellido1_alu));
+    SET password_alu = SUBSTRING(SHA2(CONCAT(NOW(), RAND()), 256), 1, 8);
+
+    INSERT INTO tbl_login (username, password, tipo_usuario) 
+    VALUES (username_alu, password_alu, 'alumno');
+END //
+
+DELIMITER ;
 
 select id_alumno,nom_alu,apellido1_alu,apellido2_alu,dni_alum,email_alum,telf_alum,codi_clase from tbl_alumno inner join tbl_clase on tbl_alumno.id_clase = tbl_clase.id_clase;

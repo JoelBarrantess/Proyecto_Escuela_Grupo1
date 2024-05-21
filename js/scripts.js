@@ -1,7 +1,7 @@
 
 //Cambia el campo de clase segun si es profesor o alumno
 function campoClase() {
-    var Usuario = document.getElementById('usuario').value;
+    var Usuario = document.getElementById('tipo_usuario').value;
     var claseField = document.getElementById('clase_field');
     if (Usuario === 'alumno') {
         claseField.style.display = 'block';
@@ -90,14 +90,13 @@ function validarDNI() {
     return true;
 }
 // Validación de eliminación de registro
-function confirmarEliminar(id) {
+function confirmarEliminar(id, tabla) {
     if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
-        // Obtener el tipo de tabla (alumnos o profesores)
-        var tabla = "<?php echo $tabla; ?>";
         // Redirigir a la página de eliminación con el ID correspondiente
-        window.location.href = "../acciones/eliminar.php?id_" + tabla + "=" + id;
+        window.location.href = "../acciones/eliminar.php?id_" + (tabla == 'profesores' ? 'profesor' : 'alumno') + "=" + id + "&tabla=" + tabla;
     }
 }
+
 
 function validarEmail() {
     var email = document.getElementById("email").value;
@@ -113,7 +112,7 @@ function validarEmail() {
 }
 
 function validarSeleccion() {
-    var Usuario = document.getElementById("usuario");
+    var Usuario = document.getElementById("tipo_usuario");
     var error_usuario = document.getElementById("error_usuario");
 
     if (Usuario.value === "") {
