@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
 <?php
 session_start();
 if (!isset($_SESSION['loginok'])) {
@@ -136,6 +140,14 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="header">
+    <!-- Logo a la izquierda -->
+    <img src="../img/logo2.png" alt="Logo" class="logo">
+    <!-- Botón a la derecha -->
+    <a href="../proc/cerrar-sesion.php" class="btn btn-info btn-sm">Cerrar sesión</a>
+</nav>
+
 <div class="container mt-5">
     <!-- Barra de búsqueda -->
     <div class="row mb-3">
@@ -158,7 +170,7 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
         <div class="col">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="filtro">Filtrar por</label>
+                    <label class="input-group-text" for="filtro">Ordenar por</label>
                 </div>
                 <select class="custom-select" id="filtro" onchange="location = this.value;">
                     <?php if ($tabla == 'profesores'): ?>
@@ -210,7 +222,7 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
     </div>
 
     <!-- Botón exportar a csv -->
-    <div class="row">
+    <div class="row margin">
         <div class="col text-right">
             <a href='../acciones/exportar_csv.php?tabla=<?php echo $tabla; ?>' class='btn btn-success'>Exportar</a>
         </div>
@@ -221,52 +233,53 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
     <!-- Tabla principal -->
     <div class="row mt-3">
         <div class="col">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <?php if(isset($_SESSION['loginadmin'])): ?>
-                        <th scope="col">Nº</th>
-                        <?php endif;?>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">1r Apellido</th>
-                        <th scope="col">2do Apellido</th>
-                        <th scope="col">DNI</th>
-                        <th scope="col">Correo Electrónico</th>
-                        <th scope="col">Teléfono</th>
-                        <?php if ($tabla == 'alumnos'): ?>
-                            <th scope="col">Clase</th>
-                        <?php endif; ?>
-                        <?php if(isset($_SESSION['loginadmin'])): ?>
-                        <th scope="col">Acciones</th>
-                        <?php endif; ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($resultados as $columna) : ?>
+            <div class="table-responsive"> <!-- Added table-responsive class -->
+                <table class="table">
+                    <thead class="thead-dark">
                         <tr>
                             <?php if(isset($_SESSION['loginadmin'])): ?>
-                            <td><?php echo $columna['id_' . ($tabla == 'profesores' ? 'profesor' : 'alumno')]; ?></td>
+                            <th scope="col">Nº</th>
                             <?php endif;?>
-                            <td><?php echo $columna['nom_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?></td>
-                            <td><?php echo $columna['apellido1_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?></td>
-                            <td><?php echo $columna['apellido2_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?></td>
-                            <td><?php echo $columna['dni_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?></td>
-                            <td><?php echo $columna['email_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?></td>
-                            <td><?php echo $columna['telf_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?></td>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">1r Apellido</th>
+                            <th scope="col">2do Apellido</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Correo Electrónico</th>
+                            <th scope="col">Teléfono</th>
                             <?php if ($tabla == 'alumnos'): ?>
-                                <td><?php echo $columna['codi_clase']; ?></td>
-                            <?php endif;?>
+                                <th scope="col">Clase</th>
+                            <?php endif; ?>
                             <?php if(isset($_SESSION['loginadmin'])): ?>
-                            <td>
-                                <a href="../forms/form_editar.php?id_<?php echo ($tabla == 'profesores' ? 'profesor' : 'alumno')."=". $columna['id_'.($tabla == 'profesores' ? 'profesor' : 'alumno')]; echo "&tabla=".$tabla; ?>" class="btn btn-info btn-sm">Modificar</a>
-                                <a href="../acciones/eliminar.php?id_<?php echo ($tabla == 'profesores' ? 'profesor' : 'alumno')."=". $columna['id_'.($tabla == 'profesores' ? 'profesor' : 'alumno')]; echo "&tabla=".$tabla; ?>" onclick="confirmarEliminar(<?php echo $columna['id_'.($tabla == 'profesores' ? 'profesor' : 'alumno')]; ?>, '<?php echo $tabla; ?>')" class="btn btn-danger btn-sm">Eliminar</a>
-
-                            </td>
-                            <?php endif;?>
+                            <th scope="col">Acciones</th>
+                            <?php endif; ?>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($resultados as $columna) : ?>
+                            <tr>
+                                <?php if(isset($_SESSION['loginadmin'])): ?>
+                                <td><?php echo $columna['id_' . ($tabla == 'profesores' ? 'profesor' : 'alumno')]; ?></td>
+                                <?php endif;?>
+                                <td><?php echo $columna['nom_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?></td>
+                                <td><?php echo $columna['apellido1_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?></td>
+                                <td><?php echo $columna['apellido2_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?></td>
+                                <td><?php echo $columna['dni_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?></td>
+                                <td><?php echo $columna['email_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?></td>
+                                <td><?php echo $columna['telf_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?></td>
+                                <?php if ($tabla == 'alumnos'): ?>
+                                    <td><?php echo $columna['codi_clase']; ?></td>
+                                <?php endif;?>
+                                <?php if(isset($_SESSION['loginadmin'])): ?>
+                                <td>
+                                    <a href="../forms/form_editar.php?id_<?php echo ($tabla == 'profesores' ? 'profesor' : 'alumno')."=". $columna['id_'.($tabla == 'profesores' ? 'profesor' : 'alumno')]; echo "&tabla=".$tabla; ?>" class="btn btn-info btn-sm">Modificar</a>
+                                    <a href="../acciones/eliminar.php?id_<?php echo ($tabla == 'profesores' ? 'profesor' : 'alumno')."=". $columna['id_'.($tabla == 'profesores' ? 'profesor' : 'alumno')]; echo "&tabla=".$tabla; ?>" onclick="confirmarEliminar(<?php echo $columna['id_'.($tabla == 'profesores' ? 'profesor' : 'alumno')]; ?>, '<?php echo $tabla; ?>')" class="btn btn-danger btn-sm">Eliminar</a>
+                                </td>
+                                <?php endif;?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div> 
             
             <!-- Mostrar el total de registros -->
             <div class="row mt-3">
@@ -297,9 +310,9 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
                     </li>
                 </ul>
             </nav>
-            <a href="../proc/cerrar-sesion.php" class="btn btn-info btn-sm">Cerrar sesión</a>
+            
         <br><br>
-        </div>
+    </div>
         
     </div>
 </div>

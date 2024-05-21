@@ -12,11 +12,11 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav>
+    <nav class="header">
         <!-- Logo a la izquierda -->
         <img src="img/logo2.png" alt="Logo" class="logo">
         <!-- Botón a la derecha -->
-        <a class="btn" href="./view/login.php">Iniciar Sesion</a>
+        <a class="btn-index" href="./view/login.php">Iniciar Sesion</a>
     </nav>
     <!-- Carrousel -->
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">

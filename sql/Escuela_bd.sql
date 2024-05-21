@@ -36,8 +36,10 @@ create table if not exists tbl_login(
     password varchar(50) not null,
     tipo_usuario ENUM('administrador', 'profesor', 'alumno') not null,
     id_profesor int,
+    id_alumno int,
     primary key(id_login),
-    foreign key(id_profesor) references tbl_profesor(id_profesor)
+    foreign key(id_profesor) references tbl_profesor(id_profesor),
+    foreign key(id_alumno) references tbl_alumno(id_alumno)
 );
 
 insert into tbl_login (username, password,tipo_usuario) values ('admin','admin','administrador');
@@ -146,8 +148,34 @@ BEGIN
     SET username_alu = CONCAT(LOWER(LEFT(NEW.nom_alu, 1)), LOWER(NEW.apellido1_alu));
     SET password_alu = SUBSTRING(SHA2(CONCAT(NOW(), RAND()), 256), 1, 8);
 
-    INSERT INTO tbl_login (username, password, tipo_usuario) 
-    VALUES (username_alu, password_alu, 'alumno');
+    INSERT INTO tbl_login (username, password, tipo_usuario, id_alumno) 
+    VALUES (username_alu, password_alu, 'alumno', NEW.id_alumno);
+END //
+
+DELIMITER ;
+
+-- Trigger eliminar login alumnos
+
+DELIMITER //
+
+CREATE TRIGGER trigger_delete_login_alumno
+BEFORE DELETE ON tbl_alumno
+FOR EACH ROW
+BEGIN
+    DELETE FROM tbl_login WHERE id_alumno = OLD.id_alumno;
+END //
+
+DELIMITER ;
+
+-- Trigger eliminar login profesores
+
+DELIMITER //
+
+CREATE TRIGGER trigger_delete_login_profesor
+BEFORE DELETE ON tbl_profesor
+FOR EACH ROW
+BEGIN
+    DELETE FROM tbl_login WHERE id_profesor = OLD.id_profesor;
 END //
 
 DELIMITER ;

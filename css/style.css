@@ -3,7 +3,7 @@
     overflow: hidden; /* Oculta el desplazamiento del cuerpo */
 }
 
-nav {
+.header {
     background-color: #333;
     color: white;
     padding: 10px 20px;
@@ -19,7 +19,7 @@ nav {
 }
 
 /* Estilos del botón */
-.btn {
+.btn-index {
     background-color: #FF59F7; /* Color de fondo del botón */
     color: white; /* Color del texto del botón */
     padding: 10px 20px; /* Espaciado interno del botón */
@@ -27,7 +27,7 @@ nav {
     border-radius: 5px; /* Borde redondeado */
 }
 
-.btn:hover {
+.btn-index:hover {
     background-color: #a0379b;
 }
 
@@ -127,6 +127,7 @@ nav {
     border-radius: 5px; /* Borde redondeado */
     text-decoration: none;
     transition: background-color 0.3s;
+    margin: 10px;
 }
 
 .boton-atras:hover {
@@ -134,22 +135,26 @@ nav {
 }
 
 /* Estilo general de las tablas */
-.boton {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.boton:hover {
-    background-color: #0056b3;
+.table-responsive {
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
 }
 
-.eliminar {
-    background-color: red;
+.table th, .table td {
+    white-space: nowrap;
+}
+
+.margin {
+    margin-top: 10px;
+}
+
+@media (max-width: 700px) {
+
+    .table tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid grey;
+    }
+
 }
 
