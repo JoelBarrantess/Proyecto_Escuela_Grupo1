@@ -134,16 +134,7 @@
     background-color: #a0379b;
 }
 
-/* Estilo general de las tablas */
-.table-responsive {
-    margin-bottom: 1.5rem;
-    overflow-x: auto;
-}
-
-/* .table th, .table td {
-    white-space: nowrap;
-} */
-
+/* Estilo general de tablas */
 .margin {
     margin-top: 10px;
 }
@@ -163,10 +154,7 @@
 }
 
 /* Estilo para dispositivos con un ancho máximo de 700px */
-@media (max-width: 600px) {
-    .table-responsive {
-        border: 0;
-    }
+@media (max-width: 770px) {
 
     .table {
         width: 100%;
@@ -188,7 +176,7 @@
 
     .table td {
         display: block;
-        text-align: right;
+        text-align: left;
         padding-left: 50%;
         position: relative;
         white-space: normal;
