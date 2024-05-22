@@ -25,6 +25,7 @@
     padding: 10px 20px; /* Espaciado interno del botón */
     border: none; /* Sin borde */
     border-radius: 5px; /* Borde redondeado */
+    text-decoration: none;
 }
 
 .btn-index:hover {
@@ -84,16 +85,22 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
+.input option {
+    color: black; 
+    background-color: white; 
+}
+
 .submit {
     border: none;
     border-radius: 30px;
     font-size: 15px;
     height: 45px;
     outline: none;
-    width: 100%;
+    width:100%;
     background: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
 }
 
 .submit:hover {
@@ -132,6 +139,10 @@
 
 .boton-atras:hover {
     background-color: #a0379b;
+}
+
+label {
+    color: white;
 }
 
 /* Estilo general de tablas */
@@ -181,6 +192,7 @@
         position: relative;
         white-space: normal;
         border: none; /* Quita el borde */
+        border-bottom: 1px solid #ddd; /* Añade borde inferior a cada celda */
     }
 
     .table td::before {
@@ -198,3 +210,4 @@
         border-bottom: 0; /* Quita el borde del último elemento */
     }
 }
+

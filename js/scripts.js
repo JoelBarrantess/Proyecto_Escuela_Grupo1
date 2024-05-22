@@ -10,18 +10,18 @@ function campoClase() {
 
 // Validación del nombre
 function validarNombre() {
-    var nombreApellidos = document.getElementById("nombre").value;
+    var nombre = document.getElementById("nombre").value;
     var errorNombre = document.getElementById("error_nombre");
 
     var regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
 
-    if (nombreApellidos.length === 0) {
+    if (nombre.length === 0) {
         errorNombre.textContent = "El nombre no puede estar vacío.";
         return false;
-    } else if (nombreApellidos.length < 3) {
+    } else if (nombre.length < 3) {
         errorNombre.textContent = "El nombre tiene que tener al menos 3 caracteres.";
         return false;
-    } else if (!regex.test(nombreApellidos)) {
+    } else if (!regex.test(nombre)) {
         errorNombre.textContent = "El nombre no puede contener números ni caracteres especiales.";
         return false;
     } else {
