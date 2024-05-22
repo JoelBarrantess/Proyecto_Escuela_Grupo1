@@ -1,0 +1,4 @@
+<iframe src="https://giphy.com/embed/ndGhpo6osfJr8YdZHF" width="500" height="500" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+<iframe src="https://giphy.com/embed/LM70LNp9IXysTaTG4U" width="500" height="500" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+<iframe src="https://giphy.com/embed/PietD1zmlZ6zE8CpTB" width="500" height="500" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+<iframe src="https://giphy.com/embed/l1032CtoCPsxZkbJZ5" width="500" height="500" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>

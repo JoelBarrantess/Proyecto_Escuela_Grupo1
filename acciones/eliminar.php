@@ -26,4 +26,3 @@ if (isset($_GET['id_alumno']) || isset($_GET['id_profesor'])) {
     exit();
 }
 ?>
-

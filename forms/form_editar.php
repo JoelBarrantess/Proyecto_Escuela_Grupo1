@@ -34,6 +34,7 @@ if ((isset($_GET['id_alumno']) || isset($_GET['id_profesor'])) && isset($_GET['t
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar <?php echo $tabla == 'alumnos' ? 'Alumno' : 'Profesor'; ?></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -49,27 +50,33 @@ if ((isset($_GET['id_alumno']) || isset($_GET['id_profesor'])) && isset($_GET['t
                             <input type="hidden" name="tabla" value="<?php echo $tabla; ?>">
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos['nom_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?>" required>
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos['nom_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?>" oninput="validarNombre()" required>
+                                <p id='error_nombre' class="error-validacion"></p>
                             </div>
                             <div class="form-group">
                                 <label for="apellido1">Primer Apellido:</label>
-                                <input type="text" class="form-control" id="apellido1" name="apellido1" value="<?php echo $datos['apellido1_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?>" required>
+                                <input type="text" class="form-control" id="apellido1" name="apellido1" value="<?php echo $datos['apellido1_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?>" oninput="validarApellido1()" required>
+                                <p id='error_apellido1' class="error-validacion"></p>
                             </div>
                             <div class="form-group">
                                 <label for="apellido2">Segundo Apellido:</label>
-                                <input type="text" class="form-control" id="apellido2" name="apellido2" value="<?php echo $datos['apellido2_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?>" required>
+                                <input type="text" class="form-control" id="apellido2" name="apellido2" value="<?php echo $datos['apellido2_' . ($tabla == 'profesores' ? 'prof' : 'alu')]; ?>" oninput="validarApellido2()" required>
+                                <p id='error_apellido2' class="error-validacion"></p>
                             </div>
                             <div class="form-group">
                                 <label for="dni">DNI:</label>
-                                <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $datos['dni_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?>" required>
+                                <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $datos['dni_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?>" oninput="validarDNI()" required>
+                                <p id="error_dni" class="error-validacion"></p>
                             </div>
                             <div class="form-group">
                                 <label for="email">Correo Electrónico:</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $datos['email_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?>">
+                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $datos['email_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?>" oninput="validarEmail()">
+                                <p id="error_email" class="error-validacion"></p>
                             </div>
                             <div class="form-group">
                                 <label for="telefono">Teléfono:</label>
-                                <input type="tel" class="form-control" id="telefono" name="telefono" value="<?php echo $datos['telf_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?>">
+                                <input type="tel" class="form-control" id="telefono" name="telefono" value="<?php echo $datos['telf_' . ($tabla == 'profesores' ? 'prof' : 'alum')]; ?>" oninput="validarNumero()">
+                                <p id="error_telefono" class="error-validacion"></p>
                             </div>
                             <?php if ($tabla == 'alumnos'): ?>
                             <div class="form-group">
@@ -84,11 +91,13 @@ if ((isset($_GET['id_alumno']) || isset($_GET['id_profesor'])) && isset($_GET['t
                             <?php endif; ?>
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         </form>
+                        <button type="submit" class="btn btn-primary">Cancelar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="../js/scripts.js" defer></script>
 </body>
 </html>
 

@@ -21,7 +21,7 @@
             <div class="container-login">
                 <div class="top-header">
                     <img class="img-login" src="../img/logo1.jpeg" alt="logo">
-                    <header class="header-login">Iniciar Sesión</header>
+                    <header class="header-login btn-login">Iniciar Sesión</header>
                 </div>
                 <div class="input-field">
                     <input class="input" type="text" id="username" name="username" placeholder="Usuario" required>
@@ -43,6 +43,9 @@
                 }
                 if(isset($_GET['desconexion']) && $_GET['desconexion'] == 1 ){
                     echo "<p class='error-login'>Te has desconectado.</p>";
+                }
+                if(isset($_GET['conexion']) && $_GET['conexion'] == 1 ){
+                    echo "<p class='error-login'>Ha habido un problema con la base de datos, contacta con el administrador.</p>";
                 }
                 ?>
 
