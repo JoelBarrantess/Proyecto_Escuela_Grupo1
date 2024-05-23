@@ -42,52 +42,6 @@ create table if not exists tbl_login(
     foreign key(id_alumno) references tbl_alumno(id_alumno)
 );
 
-insert into tbl_login (username, password,tipo_usuario) values ('admin','admin','administrador');
-
--- Inserts para profesores
-insert into tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, email_prof, telf_prof) values 
-('Walter', 'Hartwell', 'White', '76523475Z', 'walterwhite@gmail.com', '624732412'),
-('Maria', 'López', 'García', '45678901X', 'marialopez@gmail.com', '632187654'),
-('Pedro', 'Martínez', 'Rodríguez', '12345678A', 'pedromartinez@gmail.com', '678945612'),
-('Laura', 'González', 'Sánchez', '98765432B', 'lauragonzalez@gmail.com', '698745123'),
-('Manuel', 'Fernández', 'Pérez', '56789012C', 'manuelfernandez@gmail.com', '687451239'),
-('Ana', 'Sánchez', 'Martínez', '34567890D', 'anasanchez@gmail.com', '612349875'),
-('Carlos', 'García', 'Fernández', '23456789E', 'carlosgarcia@gmail.com', '645123987'),
-('Elena', 'Rodríguez', 'López', '67890123F', 'elenarodriguez@gmail.com', '654789123'),
-('Sara', 'Pérez', 'Gómez', '89012345G', 'saraperez@gmail.com', '623478915'),
-('Javier', 'Martínez', 'González', '45678901H', 'javiermartinez@gmail.com', '687512394'),
-('Lucía', 'Sánchez', 'Fernández', '12345678I', 'luciasanchez@gmail.com', '698754123'),
-('Diego', 'Gómez', 'Martínez', '67890123J', 'diegogomez@gmail.com', '612349785'),
-('Carmen', 'Martín', 'Sánchez', '23456789K', 'carmenmartin@gmail.com', '645178923'),
-('Andrés', 'López', 'Martínez', '89012345L', 'andreslopez@gmail.com', '623487591'),
-('María José', 'García', 'Gómez', '34567890M', 'mariajosegarcia@gmail.com', '654129837');
-
-
--- Inserts para cursos
-insert into tbl_clase (nombre_clase, codi_clase,id_profesor) values 
-('Sistemas Microinformatics i Xarxes', 'SMX',1),
-('Desenvolupament de Aplicacions en Entorns Web', 'DAW',5),
-('Administració de Sistemes Informatics i Xarxes', 'ASIX',3),
-('Gestión de Proyectos Informáticos', 'GPI',2);
-
-
--- Inserts para alumnos
-insert into tbl_alumno (nom_alu, apellido1_alu, apellido2_alu, dni_alum, email_alum, telf_alum, id_clase) values 
-('Julian', 'Ramos', 'Carbia', '02194242L', 'yeruzamw@gmail.com', '654321098', 1),
-('Lucia', 'Fernandez', 'Ibañez', '12345678N', 'luciafernandez@gmail.com', '623487915', 1),
-('Pedro', 'Sánchez', 'Pérez', '23456789O', 'pedrosanchez@gmail.com', '645219837', 4),
-('Lucía', 'Martínez', 'Pérez', '34567890P', 'luciamartinez@gmail.com', '623489751', 1),
-('Sara', 'Gómez', 'López', '45678901Q', 'saragomez@gmail.com', '654218937', 1),
-('Oscar', 'Lopez', 'Correa', '56789012R', 'oscarlopez@gmail.com', '645298173', 2),
-('Carmen', 'Pérez', 'Sánchez', '67890123S', 'carmenperez@gmail.com', '623487591', 3),
-('Manuel', 'García', 'Martínez', '78901234T', 'manuelgarcia@gmail.com', '654129837', 2),
-('Elena', 'López', 'Gómez', '89012345U', 'elenalopez@gmail.com', '623498175', 2),
-('Andrés', 'Martínez', 'Fernández', '90123456V', 'andresmartinez@gmail.com', '645238971', 2),
-('María', 'Fernández', 'Sánchez', '01234567W', 'mariafernandez@gmail.com', '623487129', 3),
-('Javier', 'Gómez', 'López', '12345678X', 'javiergomez@gmail.com', '654291837', 3),
-('Laura', 'Martín', 'González', '23456789Y', 'lauramartin@gmail.com', '623487915', 4),
-('Carlos', 'Sánchez', 'Pérez', '34567890Z', 'carlossanchez@gmail.com', '645219837', 3),
-('Ana', 'Pérez', 'Martínez', '45678901A', 'anaperez@gmail.com', '623489751', 4);
 
 /* Trigger alumnos */
 DELIMITER //
@@ -155,7 +109,6 @@ END //
 DELIMITER ;
 
 -- Trigger eliminar login alumnos
-
 DELIMITER //
 
 CREATE TRIGGER trigger_delete_login_alumno
@@ -168,7 +121,6 @@ END //
 DELIMITER ;
 
 -- Trigger eliminar login profesores
-
 DELIMITER //
 
 CREATE TRIGGER trigger_delete_login_profesor
@@ -180,4 +132,57 @@ END //
 
 DELIMITER ;
 
-select id_alumno,nom_alu,apellido1_alu,apellido2_alu,dni_alum,email_alum,telf_alum,codi_clase from tbl_alumno inner join tbl_clase on tbl_alumno.id_clase = tbl_clase.id_clase;
+
+-- Tres login asegurados para pruebas
+insert into tbl_login (username, password,tipo_usuario) values ('admin','admin','administrador');
+insert into tbl_login (username, password,tipo_usuario) values ('profe','qazQAZ123','profesor');
+insert into tbl_login (username, password,tipo_usuario) values ('alumno','qazQAZ123','alumno');
+
+
+-- Inserts para profesores
+insert into tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, email_prof, telf_prof) values 
+('Walter', 'Hartwell', 'White', '76523475Z', 'walterwhite@gmail.com', '624732412'),
+('Maria', 'López', 'García', '45678901X', 'marialopez@gmail.com', '632187654'),
+('Pedro', 'Martínez', 'Rodríguez', '12345678A', 'pedromartinez@gmail.com', '678945612'),
+('Laura', 'González', 'Sánchez', '98765432B', 'lauragonzalez@gmail.com', '698745123'),
+('Manuel', 'Fernández', 'Pérez', '56789012C', 'manuelfernandez@gmail.com', '687451239'),
+('Ana', 'Sánchez', 'Martínez', '34567890D', 'anasanchez@gmail.com', '612349875'),
+('Carlos', 'García', 'Fernández', '23456789E', 'carlosgarcia@gmail.com', '645123987'),
+('Elena', 'Rodríguez', 'López', '67890123F', 'elenarodriguez@gmail.com', '654789123'),
+('Sara', 'Pérez', 'Gómez', '89012345G', 'saraperez@gmail.com', '623478915'),
+('Javier', 'Martínez', 'González', '45678901H', 'javiermartinez@gmail.com', '687512394'),
+('Lucía', 'Sánchez', 'Fernández', '12345678I', 'luciasanchez@gmail.com', '698754123'),
+('Diego', 'Gómez', 'Martínez', '67890123J', 'diegogomez@gmail.com', '612349785'),
+('Carmen', 'Martín', 'Sánchez', '23456789K', 'carmenmartin@gmail.com', '645178923'),
+('Andrés', 'López', 'Martínez', '89012345L', 'andreslopez@gmail.com', '623487591'),
+('María José', 'García', 'Gómez', '34567890M', 'mariajosegarcia@gmail.com', '654129837');
+
+
+-- Inserts para cursos
+insert into tbl_clase (nombre_clase, codi_clase,id_profesor) values 
+('Sistemas Microinformatics i Xarxes', 'SMX',1),
+('Desenvolupament de Aplicacions en Entorns Web', 'DAW',5),
+('Administració de Sistemes Informatics i Xarxes', 'ASIX',3),
+('Gestión de Proyectos Informáticos', 'GPI',2);
+
+
+-- Inserts para alumnos
+insert into tbl_alumno (nom_alu, apellido1_alu, apellido2_alu, dni_alum, email_alum, telf_alum, id_clase) values 
+('Julian', 'Ramos', 'Carbia', '02194242L', 'yeruzamw@gmail.com', '654321098', 1),
+('Lucia', 'Fernandez', 'Ibañez', '12345678N', 'luciafernandez@gmail.com', '623487915', 1),
+('Pedro', 'Sánchez', 'Pérez', '23456789O', 'pedrosanchez@gmail.com', '645219837', 4),
+('Lucía', 'Martínez', 'Pérez', '34567890P', 'luciamartinez@gmail.com', '623489751', 1),
+('Sara', 'Gómez', 'López', '45678901Q', 'saragomez@gmail.com', '654218937', 1),
+('Oscar', 'Lopez', 'Correa', '56789012R', 'oscarlopez@gmail.com', '645298173', 2),
+('Carmen', 'Pérez', 'Sánchez', '67890123S', 'carmenperez@gmail.com', '623487591', 3),
+('Manuel', 'García', 'Martínez', '78901234T', 'manuelgarcia@gmail.com', '654129837', 2),
+('Elena', 'López', 'Gómez', '89012345U', 'elenalopez@gmail.com', '623498175', 2),
+('Andrés', 'Martínez', 'Fernández', '90123456V', 'andresmartinez@gmail.com', '645238971', 2),
+('María', 'Fernández', 'Sánchez', '01234567W', 'mariafernandez@gmail.com', '623487129', 3),
+('Javier', 'Gómez', 'López', '12345678X', 'javiergomez@gmail.com', '654291837', 3),
+('Laura', 'Martín', 'González', '23456789Y', 'lauramartin@gmail.com', '623487915', 4),
+('Carlos', 'Sánchez', 'Pérez', '34567890Z', 'carlossanchez@gmail.com', '645219837', 3),
+('Ana', 'Pérez', 'Martínez', '45678901A', 'anaperez@gmail.com', '623489751', 4);
+
+
+

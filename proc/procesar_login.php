@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     exit;
                 } elseif ($tipo_usuario == "alumno") {
                     $_SESSION["loginalum"] = true;
+                    $_SESSION["id_alumno"] = $user['id_alumno']; // Almacenar id del alumno en la sesión
                     header("Location: ../view/alumnos.php");
                     exit;
                 } 

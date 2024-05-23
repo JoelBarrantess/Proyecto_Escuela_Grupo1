@@ -71,7 +71,7 @@ switch ($filtro) {
 if ($tabla == 'alumnos') {
     $sql_base = "SELECT DISTINCT a.*, c.codi_clase 
             FROM tbl_alumno a 
-            LEFT JOIN tbl_clase c ON a.id_clase = c.id_clase ";
+            INNER JOIN tbl_clase c ON a.id_clase = c.id_clase ";
     if ($id_profesor) {
         $sql_base .= "INNER JOIN tbl_profesor p ON c.id_profesor = p.id_profesor WHERE p.id_profesor = :id_profesor ";
     }
@@ -236,8 +236,8 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
     <!-- Tabla principal -->
     <div class="row mt-3">
         <div class="col">
-            <div class="table-responsive"> <!-- Added table-responsive class -->
-                <table class="table">
+            <div class="table-responsive"> 
+                <table class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
                             <?php if(isset($_SESSION['loginadmin'])): ?>

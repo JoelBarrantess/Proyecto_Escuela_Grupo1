@@ -33,7 +33,7 @@
                     <button class="submit" type="submit">Iniciar Sesión</button>
                 </div>
 
-                <!-- Mensaje de error si fallamos en las credenciales -->
+                <!-- Mensaje de error si falla algo -->
                 <?php
                 if(isset($_GET['error']) && $_GET['error'] == 1 ){
                     echo "<p class='error-login'>Error: Las credenciales son incorrectas.</p>";

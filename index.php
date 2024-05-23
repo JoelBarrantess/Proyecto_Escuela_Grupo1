@@ -28,7 +28,7 @@
                 <img src="img/img2.jpg" class="d-block w-100 img-carousel" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="img/img3.gif" class="d-block w-100 img-carousel" alt="...">
+                <img src="img/img3.jpg" class="d-block w-100 img-carousel" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">

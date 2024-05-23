@@ -1,8 +1,8 @@
 <?php
 require_once '../conexion/conexion.php';
 
+//Recogemos los datos enviados por el formulario de crear
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener datos del formulario
     $id = $_POST['id'];
     $tabla = $_POST['tabla'];
     $nombre = $_POST['nombre'];
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $clase = isset($_POST['clase']) ? $_POST['clase'] : null;
 
     try {
-        // Preparar y ejecutar la consulta para actualizar los datos
+        // Preparamos y ejecutamos la consulta para actualizar los datos
         if ($tabla == 'alumnos') {
             $consulta = $pdo->prepare('UPDATE tbl_alumno SET nom_alu = :nombre, apellido1_alu = :apellido1, apellido2_alu = :apellido2, dni_alum = :dni, email_alum = :email, telf_alum = :telefono, id_clase = :clase WHERE id_alumno = :id');
             $consulta->execute([
@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'clase' => $clase,
                 'id' => $id
             ]);
+        // Hacemos lo mismo pero en caso de que sea un profesor
         } elseif ($tabla == 'profesores') {
             $consulta = $pdo->prepare('UPDATE tbl_profesor SET nom_prof = :nombre, apellido1_prof = :apellido1, apellido2_prof = :apellido2, dni_prof = :dni, email_prof = :email, telf_prof = :telefono WHERE id_profesor = :id');
             $consulta->execute([
@@ -40,11 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ]);
         }
 
-        // Redirigir de vuelta a la página de las tablas según la tabla modificada
+        // Redirigir de vuelta a la página de las tablas
         header('Location: ../view/tablas.php?tabla=' . $tabla);
         exit();
     } catch (PDOException $e) {
-        // Manejar errores de la base de datos
         echo 'Error: ' . $e->getMessage();
     }
 }

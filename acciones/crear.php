@@ -1,8 +1,8 @@
 <?php
 require_once '../conexion/conexion.php';
 
+//Recogemos los datos enviados por el formulario de crear
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener datos del formulario
     $tipo_usuario = $_POST['tipo_usuario'];
     $nombre = $_POST['nombre'];
     $apellido1 = $_POST['apellido1'];
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         if ($tipo_usuario == 'alumno') {
-            // Preparar y ejecutar la consulta para insertar el nuevo alumno
+            // Prepararamos y ejecutamos la consulta para insertar el nuevo alumno
             $consulta = $pdo->prepare('INSERT INTO tbl_alumno (nom_alu, apellido1_alu, apellido2_alu, dni_alum, email_alum, telf_alum, id_clase) VALUES (:nombre, :apellido1, :apellido2, :dni, :email, :telefono, :clase)');
             $consulta->execute([
                 'nombre' => $nombre,
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'clase' => $clase
             ]);
         } elseif ($tipo_usuario == 'profesor') {
-            // Preparar y ejecutar la consulta para insertar el nuevo profesor
+            // Preparamos y ejecutamos la consulta para insertar el nuevo profesor
             $consulta = $pdo->prepare('INSERT INTO tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, email_prof, telf_prof) VALUES (:nombre, :apellido1, :apellido2, :dni, :email, :telefono)');
             $consulta->execute([
                 'nombre' => $nombre,
@@ -38,11 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ]);
         }
 
-        // Redirigir de vuelta a la página principal o a otra página
+        // Redirigir de vuelta a la página de las tablas
         header('Location: ../view/tablas.php?tabla=' . ($tipo_usuario == 'alumno' ? 'alumnos' : 'profesores'));
         exit();
     } catch (PDOException $e) {
-        // Manejar errores de la base de datos
         echo 'Error: ' . $e->getMessage();
     }
 }

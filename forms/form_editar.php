@@ -32,6 +32,7 @@ if ((isset($_GET['id_alumno']) || isset($_GET['id_profesor'])) && isset($_GET['t
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Muestra el titulo, si la tabla es "alumnos" mostrara "Alumno", si no "Profesor" -->
     <title>Editar <?php echo $tabla == 'alumnos' ? 'Alumno' : 'Profesor'; ?></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">

@@ -1,3 +1,4 @@
+//Funcion para mostrar el campo clase en el formulario en caso de que sea un alumno y ocultarlo en caso de ser profesor
 function campoClase() {
     var Usuario = document.getElementById('tipo_usuario').value;
     var claseField = document.getElementById('clase_field');
@@ -133,6 +134,7 @@ function validarSeleccion() {
     }
 }
 
+//Validar el numero de telefono
 function validarNumero() {
     var telefono = document.getElementById("telefono").value;
     var errorTelefono = document.getElementById("error_telefono");
@@ -170,10 +172,14 @@ document.getElementById("formulario_crear").addEventListener("submit", function(
 });
 
 //Funcion confirmar antes de eliminar
-
-    function confirmarEliminar(id, tabla) {
-        if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
-            window.location.href = "../acciones/eliminar.php?" + tabla + "=" + id;
-        }
+function confirmarEliminar(id, tabla) {
+    if (confirm("¿Estás seguro de que deseas eliminar este registro?")) {
+        window.location.href = "../acciones/eliminar.php?" + tabla + "=" + id;
     }
+}
 
+//Funcion para cuando haces logoff 
+function cerrarSesion() {
+    alert("Sesión cerrada exitosamente.");
+    window.location.href = "../view/login.php?desconexion=1";
+}
