@@ -42,8 +42,6 @@ create table if not exists tbl_login(
     foreign key(id_alumno) references tbl_alumno(id_alumno)
 );
 
-
-/* Trigger alumnos */
 DELIMITER //
 CREATE TRIGGER trigger_alumnos
 BEFORE INSERT ON tbl_alumno
@@ -55,8 +53,6 @@ BEGIN
 END //
 DELIMITER ;
 
-
-/* Trigger profesores */
 DELIMITER //
 CREATE TRIGGER trigger_profesores
 BEFORE INSERT ON tbl_profesor
@@ -68,8 +64,6 @@ BEGIN
 END //
 DELIMITER ;
 
-
-/* Trigger login profe */
 DELIMITER //
 
 CREATE TRIGGER trigger_login_profesor
@@ -88,8 +82,6 @@ END //
 
 DELIMITER ;
 
-
-/* Trigger login alumnos */
 DELIMITER //
 
 CREATE TRIGGER trigger_login_alumno
@@ -108,7 +100,6 @@ END //
 
 DELIMITER ;
 
--- Trigger eliminar login alumnos
 DELIMITER //
 
 CREATE TRIGGER trigger_delete_login_alumno
@@ -120,7 +111,6 @@ END //
 
 DELIMITER ;
 
--- Trigger eliminar login profesores
 DELIMITER //
 
 CREATE TRIGGER trigger_delete_login_profesor
@@ -132,14 +122,10 @@ END //
 
 DELIMITER ;
 
-
--- Tres login asegurados para pruebas
 insert into tbl_login (username, password,tipo_usuario) values ('admin','admin','administrador');
 insert into tbl_login (username, password,tipo_usuario) values ('profe','qazQAZ123','profesor');
 insert into tbl_login (username, password,tipo_usuario) values ('alumno','qazQAZ123','alumno');
 
-
--- Inserts para profesores
 insert into tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, email_prof, telf_prof) values 
 ('Walter', 'Hartwell', 'White', '76523475Z', 'walterwhite@gmail.com', '624732412'),
 ('Maria', 'López', 'García', '45678901X', 'marialopez@gmail.com', '632187654'),
@@ -157,16 +143,12 @@ insert into tbl_profesor (nom_prof, apellido1_prof, apellido2_prof, dni_prof, em
 ('Andrés', 'López', 'Martínez', '89012345L', 'andreslopez@gmail.com', '623487591'),
 ('María José', 'García', 'Gómez', '34567890M', 'mariajosegarcia@gmail.com', '654129837');
 
-
--- Inserts para cursos
 insert into tbl_clase (nombre_clase, codi_clase,id_profesor) values 
 ('Sistemas Microinformatics i Xarxes', 'SMX',1),
 ('Desenvolupament de Aplicacions en Entorns Web', 'DAW',5),
 ('Administració de Sistemes Informatics i Xarxes', 'ASIX',3),
 ('Gestión de Proyectos Informáticos', 'GPI',2);
 
-
--- Inserts para alumnos
 insert into tbl_alumno (nom_alu, apellido1_alu, apellido2_alu, dni_alum, email_alum, telf_alum, id_clase) values 
 ('Julian', 'Ramos', 'Carbia', '02194242L', 'yeruzamw@gmail.com', '654321098', 1),
 ('Lucia', 'Fernandez', 'Ibañez', '12345678N', 'luciafernandez@gmail.com', '623487915', 1),

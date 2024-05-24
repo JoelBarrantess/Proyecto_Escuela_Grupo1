@@ -104,12 +104,5 @@ $nombre_completo = $resultado['nombre_completo'];
             </ul>
         </section>
     </div>
-    <footer>
-        <p>¿Necesitas Ayuda? Contáctanos en:</p>
-        <p>soporte@institucion.edu</p>
-        <p>Centro de Ayuda en línea</p>
-        <a href="../proc/cerrar-sesion.php" class="logout-btn">Cerrar sesión</a>
-
-    </footer>
 </body>
 </html>
